@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,15 @@ Route::get('/articles/create', function () {
     return view('articles/create');
 });
 
-Route::post('/articles', function () {
+Route::post('/articles', function (Request $request) {
+    // 비어있지 않고, 문자열이고, 255자를 넘지 않을 것
+    $request->validate([
+        'body' => [
+            'required',
+            'string',
+            'max:255'
+        ]
+    ]);
+    
     return 'hello';
 });
